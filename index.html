@@ -46,12 +46,19 @@
 						個にする
 					</li>
 					<li class="list-group-item">
-							文頭一時下げを
-							<select id="opt-clear-fc">
-								<option value="0">残す</option>
-								<option value="1">消す</option>
-							</select>
-						</li>
+						文頭一時下げを
+						<select id="opt-clear-fc">
+							<option value="0">残す</option>
+							<option value="1">消す</option>
+						</select>
+					</li>
+					<li class="list-group-item">
+						ルビを
+						<select id="opt-clear-ruby">
+							<option value="0">残す</option>
+							<option value="1">消す</option>
+						</select>
+					</li>
 				</ul>
 
 			</div>
@@ -92,16 +99,23 @@ var convert_text = function(){
 	var $from = $("#js-from"), $to = $("#js-to");
 	var opt_clear_fc = $("#opt-clear-fc").val() == 1;
 	var opt_count = $("#opt-count").val() * 1;
+	var opt_ruby = $("#opt-clear-ruby").val() * 1;
 
 	var content = $from.val();
 	
 	//連続改行を変換する
 	content = content.replace(/\r\n/g, "\n")
-				.replace(/\n+/g, "\n".repeat(opt_count + 1))
+				.replace(/\n+/g, "\n".repeat(opt_count + 1));
 
 	//文頭一時下げ
 	if(opt_clear_fc){
-		content = content.replace(/^[　]/mg, "")
+		content = content.replace(/^[　]/mg, "");
+	}
+
+	//ルビの除去
+	if(opt_ruby){
+		content = content.replace(/｜([^《]+)《([^》]+)》/g, "$1");
+		content = content.replace(/([\u30e0-\u9fcf]+)《([^》]+)》/g, "$1");
 	}
 
 	$to.val(content);
@@ -114,7 +128,7 @@ $(function(){
 </script>
 
 <pre style="display: none" id="js-template">
-私は名もなき新人看護師。
+私は名もなき新人看護師《しんじんかんごし》。
 
 
 
@@ -140,11 +154,11 @@ $(function(){
 
 
 
-　その日の夜も、私はナースステーションで古ぼけたパソコンにかじりついて、今日一日の看護記録かんごきろくを書いていた。
+　その日の夜も、私はナースステーションで古ぼけたパソコンにかじりついて、今日一日の｜看護記録《かんごきろく》を書いていた。
 
 
 
-　場所はＳ宿。時刻は深夜。夜景の見える限界病棟げんかいびょうとう。
+　場所はＳ宿。時刻は深夜。夜景の見える｜限界病棟《げんかいびょうとう》。
 
 　この病棟に勤務する看護師達の朝は異様に早く、夜もめまいがするほど遅い。
 
