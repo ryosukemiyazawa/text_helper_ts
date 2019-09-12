@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>改行を取るツール</title>
+  </head>
+  <body>
+
+	<div class="container" style="padding-top: 30px">
+
+		<h3>改行を取るツールです</h3>
+
+		<div class="row">
+			<div class="col-sm">
+
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">変換元</h5>
+						<textarea id="js-from" class="form-control" rows="20"></textarea>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="col-sm col-sm-2">
+
+				<div class="text-center mb-3">
+					<button type="button" onclick="convert_text();" class="btn btn-primary">変換</button>
+				</div>
+
+				<h5>オプション</h5>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+						連続する改行を
+						<select id="opt-count">
+							<option>0</option>
+							<option>1</option>
+						</select>
+						個にする
+					</li>
+					<li class="list-group-item">
+							文頭一時下げを
+							<select id="opt-clear-fc">
+								<option value="0">残す</option>
+								<option value="1">消す</option>
+							</select>
+						</li>
+				</ul>
+
+			</div>
+
+			<div class="col-sm">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">変換後</h5>
+						<textarea id="js-to" class="form-control" rows="20"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script type="text/Javascript">
+var init_text_helper = function(){
+
+	var $from = $("#js-from"), $to = $("#js-to");
+
+	if($from.val().length < 1){
+		$from.val($("#js-template").html());
+	}
+
+
+};
+
+var convert_text = function(){
+
+	var $from = $("#js-from"), $to = $("#js-to");
+	var opt_clear_fc = $("#opt-clear-fc").val() == 1;
+	var opt_count = $("#opt-count").val() * 1;
+
+	var content = $from.val();
+	
+	//連続改行を変換する
+	content = content.replace(/\r\n/g, "\n")
+				.replace(/\n+/g, "\n".repeat(opt_count + 1))
+
+	//文頭一時下げ
+	if(opt_clear_fc){
+		content = content.replace(/^[　]/mg, "")
+	}
+
+	$to.val(content);
+
+}
+
+$(function(){
+	init_text_helper();
+});
+</script>
+
+<pre style="display: none" id="js-template">
+私は名もなき新人看護師。
+
+
+
+　趣味は頭を空っぽにしてやることができるゲーム。
+
+
+
+　特にゾンビを銃器で撃うちまくるやつと、友達と馬鹿話をしながら盛り上がって遊べる乙女ゲームが大好物だ。
+
+
+
+　……いや。
+
+
+
+　正確には大好物『だった』。
+
+　めちゃくちゃ気を付けて選んだのに『外れ』の職場に当たってしまったので、今はゲームをする余裕なんてない。今月も法定残業時間を大きく上回るサービス残業の真っ最中だった。
+
+
+
+（早く終わらせなきゃ……でも頭が全然回らないよ……）
+
+
+
+　その日の夜も、私はナースステーションで古ぼけたパソコンにかじりついて、今日一日の看護記録かんごきろくを書いていた。
+
+
+
+　場所はＳ宿。時刻は深夜。夜景の見える限界病棟げんかいびょうとう。
+
+　この病棟に勤務する看護師達の朝は異様に早く、夜もめまいがするほど遅い。
+
+　仕事時間があまりに長すぎるので、食事やシャワーの時間を諦めてでも、たった四、五時間程度の睡眠時間を確保しなければならない有様ありさまなのだから。
+
+
+
+（最近なんにもやっていないなあ。
+
+　ゲームも無理だし、友達とも遊べてないし……というかスマホさえ開いてない……）
+
+
+
+　そんなことを考えながら、私は内心ため息をつく。
+
+
+
+　──看護師と言えば『男遊びが激しい・気が強い・高給取り』……なんてところが、世間様がいだいているイメージだと思う。確かに実際そういう人がいるのも事実だ。
+
+　……だけど、私の場合は全然違う。完全にぬれぎぬだ。
+
+
+
+　中高時代はゲームにハマり、自分の外見を気にしなさ過ぎて非モテロード一直線だった。
+
+　見た目に気をつかうようになった大学時代は、勉強と実習に打ち込むかたわら、女友達とバカみたいに高いヒールを履はいて外で遊ぶことに夢中になっていたし。
+
+
+
+　色んな人とお喋しゃべりするのは好きだけれど、気が強い方ではないから先輩には怒鳴られまくって病んでいるし、男遊びどころか恋愛経験もまったくのゼロ。
+
+　……パリピごっこをやっているといかにも恵まれていそうなチャラい男の人から声がかかるのだけれど、私は根っこが非モテなので、自分に自信がありそうな恵まれた人間が大嫌いなのだ。
+
+
+
+（……我ながら属性がねじれきっているんだよなあ。これ、多分このまま誰も好きにならずに皆から「理想が高すぎる」って言われながらアラサーになるパターンだ……）
+
+
+
+　そんなことを考えながら、私はため息をつく。
+
+　ちなみに私は「高給取り」でも、多分ない。残業百時間超えでも残業代ナシ・手取り十八万ちょいの現状は、この斜陽しゃよう国家日本では高給取りの部類なのかもしれないが。
+
+
+
+　看護師にだって、色々いる。
+
+
+
+　私は高給取りでもなければ百戦錬磨の恋愛勇者でもなく、ただのゾンビ好きのギャルもどきにすぎない。看護という仕事が好きで誇りを持っているけれど、最近は激務に潰れてそんな精神性さえも失いつつある、そんな労働マシーンだ。
+
+
+
+（うう、ゾンビを殺してスッキリしたい……労働はもう嫌だ……）
+
+
+
+　そんなことを考えながら、私はいやいや記録仕事に戻った。
+
+　さて、そんなゾンビどころかスマホさえ見る余裕がない新人看護師の一日の流れは以下の通りだ。
+
+　まず、五時間寝たらすぐに起床＆出勤して病棟に入り、ポンコツＰＣで受け持ち患者さんのデータを調べる。終わったらその日一日のお薬のチェック&点滴薬のセッティングの開始だ。そのまま夜間帯との引き継ぎを終えれば、病棟を走りっぱなしの仕事が始まる。水を飲む時間も、トイレに行く暇さえもない。
+
+　勤務時間も長く忙しければ、昼休憩ひるきゅうけいもないに等しい。
+
+　若手も先輩も、事実上の五分。
+
+　誇張こちょうなしの五分。
+
+　酷いときは三十秒……休憩室に飛び込んで、おにぎりを口に詰め込めるだけ詰め込んで、口元をモグモグさせながらナースステーションに戻り、記録の続きや午後の報告会の準備をするのだ。
+
+　決して……決して、特殊な場所ではない。
+
+　どこの病院にも必ず一病棟はある、ごくありふれた限界病棟。
+
+
+
+（……っと、危ない。今、寝そうだった）
+
+
+
+　寝不足のせいだろうか、意識が一瞬遠のきかけたので、私は思わず頭を振った。
+
+　ポーン、ポーン、と、患者さんの状態をモニタリングするテレメータの発する音が規則的に響き、残業中の他の看護師達がパソコンをカタカタ言わせている音も聞こえてくる。
+
+　ポケットに括くくり付けた腕時計に目をやれば、時刻は00:30……いつもよりちょっと遅い。
+
+
+
+（深夜かあ……皆寮や自宅が近いとはいえ、夜のＳ宿って危ないと思うんだけど）
+
+
+
+　それなのに、こんな時間になっても日勤の人間が誰も帰っていない。ここはそういう職場だった。
+
+　私はふと、PCから顔を上げる。
+
+　ナースステーションの向こう側、その廊下ろうかを更に隔へだてた先にあるガラス窓には、煌きらびやかな夜景が広がっていた。
+
+　虹色のネオンサインに、ずらりと並ぶ大量のオフィスビルの窓明り。
+
+　高層ビルには必ず設置するよう義務付けられている、低光度ていこうど赤色せきしょく航空障害灯こうくうしょうがいとうも沢山見えた。
+
+　赤い光は夜の闇とビルの窓灯りの間を縫ぬうようにして、そこかしこに浮かんでいる。チカチカと点滅し、まるで脈打みゃくうっているようにも見えた。いつ見ても非現実的なくらい綺麗で、まるで異世界のような光景。
+
+
+
+
+　……こんなに夜は更ふけているのに、街は眠る気配がない。
+
+　ここから見える明かりの数だけ、人々はまだ眠りもせず起きている。
+
+
+
+（……Ｓ宿の夜景って、私たち社畜が命を削って作っているものだったんだなあ。実際に働き始めるまで気づかなかった……）
+
+
+
+
+　こんなにも美しく煌きらびやかな世界を維持するために、人々は今日も使い潰されている。
+
+
+
+　……なんて、私がそんなことを考えていた次の瞬間に、その夜景が一瞬ドクリと嫌な感じに揺らいだ。
+
+
+
+
+（あれ……？ 変だな）
+
+
+
+　自分の目が霞かすんだのか、脳の調子が悪くなったのか、今の私には判断がつかない。ただ、疲れていることだけは確かだった。
+
+　慌てて頭を軽く振ると、視界はすぐに元に戻る。ホッとため息をつきながらも、私は苦い顔をして胸を押さえた。
+
+
+
+
+（死ぬかも……うん、死ぬわこれ）
+</pre>
+</body>
+</html>
